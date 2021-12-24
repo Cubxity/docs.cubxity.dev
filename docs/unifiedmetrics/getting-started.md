@@ -12,8 +12,9 @@ First, you must download and install UnifiedMetrics on your server. After downlo
 respective folder. Installing UnifiedMetrics exclusively on your proxy server(s) **will not export backend metrics**, such
 as TPS.
 
-- **Spigot/Paper/etc, Velocity, BungeeCord, Minestom:** `plugins`
+- **Spigot/Paper/etc, Velocity, BungeeCord:** `plugins`
 - **Fabric:** `mods`
+- **Minestom:** `extensions`
 
 [**Downloads »**](https://github.com/Cubxity/UnifiedMetrics/releases/)
 
