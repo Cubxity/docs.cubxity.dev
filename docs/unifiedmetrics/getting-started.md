@@ -24,16 +24,16 @@ Then, you must select a metric driver to use. **Please follow the respective gui
 
 ### Prometheus (Recommended)
 
-Prometheus is an open-source systems monitoring and alerting toolkit. This is the recommended metric driver and is
+Prometheus is an open-source systems monitoring and alerting toolkit. This is the recommended metrics driver and is
 perfect for integrated environments like Kubernetes and Docker.
 
 [**Set up Prometheus »**](drivers/prometheus)
 
 ### InfluxDB
 
-InfluxDB is an open-source time series database.
+InfluxDB is an open-source time series database. This is useful for pushing metrics to a remote server.
 
-[**Set up InfluxDB »**](drivers/prometheus)
+[**Set up InfluxDB »**](drivers/influxdb)
 
 ## Visualization
 
