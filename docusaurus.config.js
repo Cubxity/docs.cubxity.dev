@@ -64,9 +64,9 @@ const config = {
         ],
       },
       algolia: {
-        appId: "LATKINTUKN",
-        apiKey: "83bb8847e1bec558fb16272a86b60dd2",
-        indexName: "docs.cubxity.dev",
+        appId: "B9NMSRWWZL",
+        apiKey: "7b56091b43fc29f0da05dc32a1ba2f3b",
+        indexName: "docs-cubxity",
         contextualSearch: true,
       },
       prism: {
