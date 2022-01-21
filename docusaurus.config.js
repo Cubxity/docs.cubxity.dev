@@ -63,6 +63,12 @@ const config = {
           },
         ],
       },
+      algolia: {
+        appId: "LATKINTUKN",
+        apiKey: "83bb8847e1bec558fb16272a86b60dd2",
+        indexName: "docs.cubxity.dev",
+        contextualSearch: true,
+      },
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
