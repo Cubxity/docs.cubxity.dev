@@ -1,8 +1,7 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
-const lightCodeTheme = require("prism-react-renderer/themes/github");
-const darkCodeTheme = require("prism-react-renderer/themes/dracula");
+const { themes } = require("prism-react-renderer");
 
 /** @type {import("@docusaurus/types").Config} */
 const config = {
@@ -32,17 +31,17 @@ const config = {
   ],
 
   themeConfig:
-  /** @type {import("@docusaurus/preset-classic").ThemeConfig} */
+    /** @type {import("@docusaurus/preset-classic").ThemeConfig} */
     ({
       colorMode: {
         defaultMode: "dark",
-        disableSwitch: true
+        disableSwitch: true,
       },
       navbar: {
         title: "Cubxity's Docs",
         logo: {
           alt: "My Site Logo",
-          src: "img/logo.svg",
+          src: "img/logo.png",
         },
         items: [
           {
@@ -69,8 +68,8 @@ const config = {
         indexName: "docs-cubxity",
       },
       prism: {
-        theme: lightCodeTheme,
-        darkTheme: darkCodeTheme,
+        theme: themes.github,
+        darkTheme: themes.dracula,
       },
     }),
 };

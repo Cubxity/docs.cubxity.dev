@@ -17,9 +17,9 @@
 .project {
     display: flex;
     flex-direction: row;
-    border-radius: 12px;
-    border: 1px solid var(--ifm-color-emphasis-300);
-    padding: var(--ifm-global-spacing);
+    border-radius: 8px;
+    border: 1px solid var(--ifm-color-emphasis-200);
+    padding: 1.25rem;
     margin: 24px 4px;
     align-items: center;
 }
