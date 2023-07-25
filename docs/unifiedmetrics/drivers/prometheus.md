@@ -7,6 +7,17 @@ sidebar_position: 1
 Prometheus is an open-source systems monitoring and alerting toolkit. This is the recommended metric driver and is
 perfect for integrated environments like Kubernetes and Docker.
 
+```mermaid
+flowchart LR
+    Grafana -- "Query" --> Prometheus
+    Prometheus -- "Scrape" --> UnifiedMetrics 
+```
+
+- [Networking](#networking)
+- [Installing Prometheus](#installing-prometheus)
+- [Configuring Prometheus](#configuring-prometheus)
+- [Grafana Cloud](#grafana-cloud)
+
 ## Configuration
 
 This is the default configuration for the Prometheus driver. **This is not the configuration for Prometheus.**
@@ -102,82 +113,11 @@ server. Secure your endpoint by applying authentication, firewall, and/or VPN tu
 
 :::
 
-## Grafana Cloud
-
-Grafana Cloud offers a free hosted Grafana instance and Prometheus instance. This is useful for small servers.
-
-[**Set up Grafana Cloud »**](../guides/grafana#grafana-cloud)
-
-:::info Note
-
-You **need to host** your own Prometheus/Grafana Agent to push metrics to Grafana Cloud.
-
-:::
-
 ## Installing Prometheus
 
 Prometheus can be installed in multiple ways, depending on your environment.
-
-<details>
-  <summary>Grafana Agent (Docker Compose)</summary>
-
-**Pros:**
-
-- Declarative configuration
-- Integrates nicely with existing Minecraft containers
-- Perfect for `remote_write`
-
-**Cons:**
-
-- Can be confusing for beginners
-
-First, install [Docker Compose](https://docs.docker.com/compose/cli-command/) on your server. Then create a compose file
-somewhere, like `~/.deployment/metrics/docker-compose.yml`.
-
-```yaml
-# docker-compose.yml
-
-version: "3"
-
-services:
-  agent:
-    image: grafana/agent:latest
-    restart: always
-    container_name: agent
-    security_opt:
-      - no-new-privileges:true
-    volumes:
-      - ./agent.yml:/etc/agent-config/agent.yml
-    entrypoint:
-      - /bin/agent
-      - -config.file=/etc/agent-config/agent.yml
-      - -prometheus.wal-directory=/tmp/agent/wal
-    networks:
-      # Change this to "pterodactyl_nw" and external to true IF you are using Pterodactyl
-      - prometheus
-
-networks:
-  # Change this to "pterodactyl_nw" and external to true IF you are using Pterodactyl
-  prometheus:
-    external: true
-```
-
-Then create a network **if you are NOT USING Pterodactyl**.
-
-```bash
-$ docker network create prometheus
-```
-
-Finally, run `docker compose up -d --remove-orphans` to start Grafana Agent.
-
-```bash
-$ cd ~/.deployment/metrics
-$ docker compose up -d --remove-orphans
-```
-
-We'll not start Grafana Agent yet, since we need to [configure](#configuring-prometheus) it first.
-
-</details>
+You may also install Prometheus directly on your machine. Alternatively,
+[VictoriaMetrics](https://docs.victoriametrics.com/) can be used as a drop-in alternative for Prometheus.
 
 <details>
   <summary>Prometheus (Docker Compose)</summary>
@@ -255,6 +195,70 @@ Finally, start and stop the server. We'll need to [configure](#configuring-prome
 The Prometheus egg has web interface **enabled by default**. This may pose security risks if not configured properly.
 
 :::
+
+</details>
+
+<details>
+  <summary>Grafana Agent (Docker Compose)</summary>
+
+This method is used to push metrics to a remote Prometheus server using `remote_write`
+(for example, [Grafana Cloud](#grafana-cloud)).
+
+**Pros:**
+
+- Declarative configuration
+- Integrates nicely with existing Minecraft containers
+- Perfect for `remote_write`
+
+**Cons:**
+
+- Can be confusing for beginners
+
+First, install [Docker Compose](https://docs.docker.com/compose/cli-command/) on your server. Then create a compose file
+somewhere, like `~/.deployment/metrics/docker-compose.yml`.
+
+```yaml
+# docker-compose.yml
+
+version: "3"
+
+services:
+  agent:
+    image: grafana/agent:latest
+    restart: always
+    container_name: agent
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - ./agent.yml:/etc/agent-config/agent.yml
+    entrypoint:
+      - /bin/agent
+      - -config.file=/etc/agent-config/agent.yml
+      - -prometheus.wal-directory=/tmp/agent/wal
+    networks:
+      # Change this to "pterodactyl_nw" and external to true IF you are using Pterodactyl
+      - prometheus
+
+networks:
+  # Change this to "pterodactyl_nw" and external to true IF you are using Pterodactyl
+  prometheus:
+    external: true
+```
+
+Then create a network **if you are NOT USING Pterodactyl**.
+
+```bash
+$ docker network create prometheus
+```
+
+Finally, run `docker compose up -d --remove-orphans` to start Grafana Agent.
+
+```bash
+$ cd ~/.deployment/metrics
+$ docker compose up -d --remove-orphans
+```
+
+We'll not start Grafana Agent yet, since we need to [configure](#configuring-prometheus) it first.
 
 </details>
 
@@ -368,3 +372,15 @@ $ docker compose up -d --remove-orphans
 ```
 
 </details>
+
+## Grafana Cloud
+
+Grafana Cloud offers a free hosted Grafana instance and Prometheus instance. This is useful for small servers.
+
+[**Set up Grafana Cloud »**](../guides/grafana#grafana-cloud)
+
+:::warning Note
+
+You **need to host** your own Prometheus/Grafana Agent to push metrics to Grafana Cloud.
+
+:::

@@ -15,6 +15,11 @@ const config = {
   organizationName: "cubxity",
   projectName: "docs.cubxity.dev",
 
+  markdown: {
+    mermaid: true,
+  },
+  themes: ["@docusaurus/theme-mermaid"],
+
   presets: [
     [
       "classic",
